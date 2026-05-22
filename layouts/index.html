@@ -4,6 +4,24 @@
     {{ with .Description }}
       <p>{{ . }}</p>
     {{ end }}
+    {{ with .Params.status }}
+      <p class="status-note">{{ . }}</p>
+    {{ end }}
     {{ .Content }}
   </section>
+  {{ with .Params.intro }}
+    <section class="intro-section">
+      <p>{{ . }}</p>
+    </section>
+  {{ end }}
+  {{ with .Params.sections }}
+    <section class="info-grid" aria-label="Distribution company overview">
+      {{ range . }}
+        <article class="info-card">
+          <h2>{{ .title }}</h2>
+          <p>{{ .text }}</p>
+        </article>
+      {{ end }}
+    </section>
+  {{ end }}
 {{ end }}

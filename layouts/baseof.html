@@ -40,49 +40,96 @@
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        font-size: 20px;
-        font-weight: 700;
+        width: min(240px, 58vw);
         text-decoration: none;
       }
 
-      .brand::before {
-        width: 14px;
-        height: 14px;
-        border-radius: 3px;
-        background: var(--brand);
-        content: "";
+      .brand img {
+        display: block;
+        width: 100%;
+        height: auto;
       }
 
       .hero {
         display: grid;
-        gap: 20px;
+        gap: 16px;
         align-content: center;
-        min-height: 56vh;
-        padding: 48px 0;
-      }
-
-      .hero::before {
-        width: 80px;
-        height: 6px;
-        border-radius: 999px;
-        background: var(--brand);
-        content: "";
+        min-height: 38vh;
+        padding: 40px 0 28px;
       }
 
       .hero h1 {
-        max-width: 760px;
+        max-width: 620px;
         margin: 0;
-        font-size: clamp(40px, 7vw, 80px);
-        line-height: 0.95;
+        font-size: clamp(32px, 5vw, 56px);
+        line-height: 1;
       }
 
       .hero p {
-        max-width: 620px;
+        max-width: 600px;
         margin: 0;
-        font-size: 20px;
+        font-size: 17px;
         line-height: 1.55;
         color: #4b5568;
+      }
+
+      .status-note {
+        display: inline-flex;
+        width: fit-content;
+        border-left: 4px solid var(--brand);
+        padding: 8px 12px;
+        background: #eef0cc;
+        color: #344054;
+        font-weight: 600;
+      }
+
+      .intro-section {
+        max-width: 760px;
+        padding: 0 0 28px;
+      }
+
+      .intro-section p {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.6;
+        color: #344054;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+        padding: 8px 0 56px;
+      }
+
+      .info-card {
+        border-top: 4px solid var(--brand);
+        padding-top: 18px;
+      }
+
+      .info-card h2 {
+        margin: 0 0 10px;
+        font-size: 20px;
+        line-height: 1.2;
+      }
+
+      .info-card p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.55;
+        color: #4b5568;
+      }
+
+      @media (max-width: 860px) {
+        .info-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 560px) {
+        .info-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       .site-footer {
@@ -94,7 +141,9 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+      <a class="brand" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}">
+        <img src="/images/bazarstore-biz-logo.svg" alt="{{ site.Title }}" width="2735" height="526">
+      </a>
     </header>
     <main class="site-main">
       {{ block "main" . }}{{ end }}
