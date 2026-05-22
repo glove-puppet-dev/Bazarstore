@@ -1,6 +1,6 @@
 ---
-title: Bazarstore
-description: Bazarstore is coming soon.
+title: Bazarstore Distribution
+description: Import and distribution division of the Bazarstore retail network in Azerbaijan.
 ---
 
-We are preparing the website for launch.
+Bazarstore Distribution is preparing a dedicated website for import and distribution activities across the Azerbaijani market.
