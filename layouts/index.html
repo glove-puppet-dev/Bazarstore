@@ -7,11 +7,23 @@
     {{ with .Params.status }}
       <p class="status-note">{{ . }}</p>
     {{ end }}
+  </section>
+  <section class="overview-section">
     {{ .Content }}
   </section>
   {{ with .Params.intro }}
     <section class="intro-section">
       <p>{{ . }}</p>
+    </section>
+  {{ end }}
+  {{ with .Params.why_partner_with_us }}
+    <section class="partner-section" aria-labelledby="partner-title">
+      <h2 id="partner-title">Why partner with Bazarstore LLC</h2>
+      <ul>
+        {{ range . }}
+          <li>{{ . }}</li>
+        {{ end }}
+      </ul>
     </section>
   {{ end }}
   {{ with .Params.sections }}
