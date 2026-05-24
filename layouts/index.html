@@ -1,24 +1,68 @@
 {{ define "main" }}
   <section class="hero">
-    <h1>{{ .Title }}</h1>
-    {{ with .Description }}
-      <p>{{ . }}</p>
-    {{ end }}
-    {{ with .Params.status }}
-      <p class="status-note">{{ . }}</p>
-    {{ end }}
+    <div class="hero-content">
+      {{ with .Params.kicker }}
+        <p class="eyebrow">{{ . }}</p>
+      {{ end }}
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}
+        <p>{{ . }}</p>
+      {{ end }}
+      {{ with .Params.status }}
+        <p class="status-note">{{ . }}</p>
+      {{ end }}
+    </div>
   </section>
-  <section class="overview-section">
-    {{ .Content }}
-  </section>
+  {{ with .Params.highlights }}
+    <section class="metrics-grid" aria-label="Key company facts">
+      {{ range . }}
+        <div class="metric-item">
+          <strong>{{ .value }}</strong>
+          <span>{{ .label }}</span>
+        </div>
+      {{ end }}
+    </section>
+  {{ end }}
   {{ with .Params.intro }}
-    <section class="intro-section">
+    <section class="statement-section">
       <p>{{ . }}</p>
+    </section>
+  {{ end }}
+  {{ with .Params.story_blocks }}
+    <section class="story-section" aria-labelledby="story-title">
+      <div class="section-heading">
+        <p class="eyebrow">Positioning</p>
+        <h2 id="story-title">A full-cycle platform for market entry and growth</h2>
+      </div>
+      <div class="story-grid">
+        {{ range . }}
+          <article class="story-block">
+            <h3>{{ .title }}</h3>
+            <p>{{ .text }}</p>
+          </article>
+        {{ end }}
+      </div>
+    </section>
+  {{ end }}
+  {{ with .Params.route_to_market }}
+    <section class="route-section" aria-labelledby="route-title">
+      <div>
+        <h2 id="route-title">Integrated route-to-market platform</h2>
+        <p>From supplier negotiations to market growth, the platform connects every critical step required for reliable commercial execution in Azerbaijan.</p>
+      </div>
+      <ol>
+        {{ range . }}
+          <li>{{ . }}</li>
+        {{ end }}
+      </ol>
     </section>
   {{ end }}
   {{ with .Params.why_partner_with_us }}
     <section class="partner-section" aria-labelledby="partner-title">
-      <h2 id="partner-title">Why partner with Bazarstore LLC</h2>
+      <div>
+        <p class="eyebrow">Partnership</p>
+        <h2 id="partner-title">Why partner with Bazarstore LLC</h2>
+      </div>
       <ul>
         {{ range . }}
           <li>{{ . }}</li>
@@ -26,14 +70,31 @@
       </ul>
     </section>
   {{ end }}
-  {{ with .Params.sections }}
-    <section class="info-grid" aria-label="Distribution company overview">
+  {{ with .Params.capability_groups }}
+    <section class="capability-section" aria-labelledby="capabilities-title">
+      <div class="section-heading">
+        <p class="eyebrow">Capabilities</p>
+        <h2 id="capabilities-title">What the platform covers</h2>
+      </div>
       {{ range . }}
-        <article class="info-card">
-          <h2>{{ .title }}</h2>
-          <p>{{ .text }}</p>
-        </article>
+        <section class="capability-group">
+          <div class="capability-group-heading">
+            <h2>{{ .title }}</h2>
+            <p>{{ .lead }}</p>
+          </div>
+          <div class="capability-list">
+            {{ range .items }}
+              <article class="capability-item">
+                <h3>{{ .title }}</h3>
+                <p>{{ .text }}</p>
+              </article>
+            {{ end }}
+          </div>
+        </section>
       {{ end }}
     </section>
   {{ end }}
+  <section class="overview-section">
+    {{ .Content }}
+  </section>
 {{ end }}

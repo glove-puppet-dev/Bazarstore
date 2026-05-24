@@ -1,3 +1,6 @@
 baseURL: https://bazarstore.biz/
 locale: en-US
 title: Bazarstore LLC
+disableKinds:
+  - taxonomy
+  - term
