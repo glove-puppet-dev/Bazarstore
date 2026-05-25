@@ -4,3 +4,27 @@ title: Bazarstore LLC
 disableKinds:
   - taxonomy
   - term
+outputs:
+  home:
+    - HTML
+module:
+  imports:
+    - path: github.com/adityatelange/hugo-PaperMod
+params:
+  defaultTheme: light
+  description: Bazarstore LLC helps international suppliers enter Azerbaijan with import, logistics, distribution, compliance, retail access, and brand development.
+  disableThemeToggle: true
+  keywords:
+    - Bazarstore LLC
+    - Azerbaijan import
+    - Azerbaijan distribution
+    - retail distribution
+    - market entry Azerbaijan
+  assets:
+    msapplication_TileColor: "#b4b952"
+    safari_pinned_tab: /images/bazarstore-biz-logo.svg
+    theme_color: "#b4b952"
+  label:
+    text: Bazarstore LLC
+    icon: /images/bazarstore-biz-logo.svg
+    iconHeight: 46

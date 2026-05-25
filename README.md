@@ -7,11 +7,15 @@ The site positions Bazarstore LLC as a full-cycle market-entry, import, logistic
 ## Stack
 
 - Hugo `0.161.1`
+- Go `1.26.3` for Hugo Modules
+- Node.js `26.0.0`
 - `mise` for pinned local tooling
+- PaperMod installed as a Hugo Module
+- Tailwind CSS `4.3` compiled with PostCSS
 - Netlify-ready static deployment
 - YAML-based site configuration in `hugo.yaml`
 - Markdown/YAML page content in `content/_index.md`
-- Custom Hugo layouts in `layouts/`
+- Custom homepage layout in `layouts/index.html`
 - Static favicon, logo, hero assets, and `robots.txt` in `static/`
 
 ## Quick Start
@@ -25,7 +29,8 @@ mise install
 Run the local Hugo server:
 
 ```sh
-mise exec -- hugo server --bind 127.0.0.1 --port 1313 --buildDrafts --cacheDir "$PWD/resources/_gen"
+mise exec -- npm ci
+mise exec -- npm run dev
 ```
 
 Open the local site:
@@ -37,7 +42,13 @@ http://localhost:1313/
 Build the production site:
 
 ```sh
-mise exec -- hugo --cleanDestinationDir --ignoreCache --gc --minify --cacheDir "$PWD/resources/_gen" --noBuildLock
+mise exec -- npm run build
+```
+
+Build with a clean Hugo destination:
+
+```sh
+mise exec -- npm run build:clean
 ```
 
 The generated site is written to `public/`.
@@ -50,7 +61,7 @@ Production build:
 
 ```toml
 [build]
-  command = 'hugo --gc --minify --cacheDir "$PWD/resources/_gen"'
+  command = 'npm ci && npm run build'
   publish = "public"
 ```
 
@@ -60,6 +71,8 @@ Production environment:
 HUGO_VERSION = "0.161.1"
 HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
+GO_VERSION = "1.26.3"
+NODE_VERSION = "26.0.0"
 ```
 
 Local Netlify development keeps `HUGO_ENV = "development"` through the `context.dev.environment` block.
@@ -68,19 +81,45 @@ Local Netlify development keeps `HUGO_ENV = "development"` through the `context.
 
 ```text
 archetypes/             Hugo content archetypes
+assets/css/main.css     Tailwind 4.3 and custom source CSS
+assets/css/compiled.css Generated CSS consumed by Hugo and fingerprinted at build time
 assets/source/          Non-published source/design files
 content/_index.md       Main page content and YAML data
 data/                   Hugo data directory, currently unused
 i18n/                   Hugo translation directory, currently unused
-layouts/baseof.html     Base HTML, SEO tags, favicon links, and CSS
-layouts/index.html      Homepage layout
-layouts/list.html       Generic list layout
-layouts/single.html     Generic single-page layout
+layouts/index.html      Custom homepage layout
+layouts/partials/       PaperMod extension partials
+layouts/_legacy/        Previous custom layouts kept inactive for reference
 static/                 Static assets copied directly to the published site
+go.mod                  Hugo Module definition and PaperMod dependency
+go.sum                  Hugo Module checksum file
 hugo.yaml               Hugo site configuration
-mise.toml               Pinned Hugo version
+mise.toml               Pinned Hugo, Go, and Node versions
 netlify.toml            Netlify build and dev configuration
+package.json            Tailwind/PostCSS build scripts
+postcss.config.mjs      PostCSS configuration for Tailwind 4.3
+scripts/hugo.sh         Hugo runner using mise locally and Netlify's Hugo in deployment
 ```
+
+## Theme
+
+PaperMod is connected as a Hugo Module through `hugo.yaml`, `go.mod`, and `go.sum`.
+
+PaperMod owns the base templates, list/single templates, favicon handling, canonical URL, Open Graph tags, Twitter cards, and JSON-LD metadata. The project keeps only the custom homepage layout in `layouts/index.html` and extends the theme through `layouts/partials/extend_head.html`.
+
+The old custom `baseof.html`, `list.html`, and `single.html` files are stored in `layouts/_legacy/` and are not active.
+
+## CSS
+
+Tailwind CSS `4.3` is compiled by PostCSS before Hugo runs:
+
+```sh
+mise exec -- npm run build:css
+```
+
+The source file is `assets/css/main.css`. The generated file is `assets/css/compiled.css`, which Hugo minifies, fingerprints, and publishes through the PaperMod head extension.
+
+Tailwind Preflight is intentionally not imported, so PaperMod's base styling remains stable and the custom homepage CSS only adds the Bazarstore-specific presentation layer.
 
 ## Content
 
@@ -113,11 +152,10 @@ Current SEO baseline:
 
 Recommended next additions before broader production use:
 
-- Open Graph tags
-- Twitter Card tags
-- JSON-LD `Organization` schema
-- `robots.txt`
-- branded `404.html`
+- deeper company pages when the placeholder becomes a full website
+- supplier/contact forms if Netlify Forms or another backend is selected
+- downloadable company profile PDF
+- documented partner/category proof points
 
 ## Assets
 

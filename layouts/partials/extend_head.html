@@ -1,0 +1,7 @@
+<link rel="preload" as="image" href="/images/bazarstore-hero.avif" type="image/avif">
+<link rel="manifest" href="/site.webmanifest">
+
+{{ with resources.Get "css/compiled.css" }}
+  {{ $styles := . | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}" crossorigin="anonymous">
+{{ end }}
