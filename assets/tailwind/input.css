@@ -1,24 +1,16 @@
-/*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */
-@layer properties;
 @layer theme, utilities, components;
-@layer utilities {
-  .static {
-    position: static;
-  }
-  .block {
-    display: block;
-  }
-  .grow {
-    flex-grow: 1;
-  }
-  .transform {
-    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
-  }
-  .backdrop-filter {
-    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-  }
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@source "../../content/**/*.md";
+@source "../../layouts/index.html";
+
+@theme {
+  --color-brand: rgb(180 185 82);
+  --color-page: rgb(255 255 255);
 }
+
 :root {
   --brand: #b4b952;
   --ink: #172033;
@@ -29,50 +21,65 @@
   color: var(--ink);
   background: #ffffff;
 }
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   background: #ffffff;
 }
+
 body.list {
   background: #ffffff;
 }
+
 a {
   color: inherit;
 }
+
 .header,
 .footer {
   width: min(1120px, calc(100% - 32px));
   margin: 0 auto;
 }
+
 .header {
   box-shadow: none;
+  padding: 8px 0 12px;
 }
-.nav {
+
+.header-nav {
+  align-items: center;
   line-height: 1;
 }
+
 .logo a {
   display: inline-flex;
   align-items: center;
 }
+
 .logo img {
-  width: min(240px, 58vw);
+  width: min(220px, 54vw);
+  max-height: 42px;
   height: auto;
 }
+
 .main {
   max-width: none;
   margin: 0;
   padding: 0;
 }
+
 .main > :not(.hero) {
   width: min(1120px, calc(100% - 32px));
   margin-right: auto;
   margin-left: auto;
 }
+
 .hero {
   position: relative;
   display: grid;
@@ -81,7 +88,8 @@ a {
   min-height: min(640px, calc(100vh - 92px));
   padding: 64px max(16px, calc((100vw - 1120px) / 2));
   overflow: hidden;
-  background-image: linear-gradient(90deg, rgba(10, 16, 28, 0.88) 0%, rgba(10, 16, 28, 0.72) 36%, rgba(10, 16, 28, 0.18) 72%),
+  background-image:
+    linear-gradient(90deg, rgba(10, 16, 28, 0.88) 0%, rgba(10, 16, 28, 0.72) 36%, rgba(10, 16, 28, 0.18) 72%),
     linear-gradient(0deg, rgba(10, 16, 28, 0.68) 0%, rgba(10, 16, 28, 0) 48%),
     url("/images/bazarstore-hero.png");
   background-position: center;
@@ -89,9 +97,11 @@ a {
   background-repeat: no-repeat;
   color: #ffffff;
 }
+
 @supports (background-image: image-set(url("/images/bazarstore-hero.avif") type("image/avif"))) {
   .hero {
-    background-image: linear-gradient(90deg, rgba(10, 16, 28, 0.88) 0%, rgba(10, 16, 28, 0.72) 36%, rgba(10, 16, 28, 0.18) 72%),
+    background-image:
+      linear-gradient(90deg, rgba(10, 16, 28, 0.88) 0%, rgba(10, 16, 28, 0.72) 36%, rgba(10, 16, 28, 0.18) 72%),
       linear-gradient(0deg, rgba(10, 16, 28, 0.68) 0%, rgba(10, 16, 28, 0) 48%),
       image-set(
         url("/images/bazarstore-hero.avif") type("image/avif"),
@@ -100,17 +110,20 @@ a {
       );
   }
 }
+
 .hero-content {
   display: grid;
   gap: 16px;
   max-width: 680px;
 }
+
 .hero h1 {
   margin: 0;
   font-size: clamp(42px, 6vw, 74px);
   line-height: 0.96;
   letter-spacing: -0.02em;
 }
+
 .hero p {
   max-width: 600px;
   margin: 0;
@@ -118,6 +131,7 @@ a {
   line-height: 1.55;
   color: #e8ecf4;
 }
+
 .eyebrow {
   margin: 0;
   color: var(--brand);
@@ -126,6 +140,7 @@ a {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+
 .status-note {
   display: inline-flex;
   width: fit-content;
@@ -136,45 +151,54 @@ a {
   font-weight: 600;
   backdrop-filter: blur(6px);
 }
+
 .overview-section {
   max-width: 860px;
   padding: 0 0 56px;
 }
+
 .overview-section p {
   margin: 0 0 16px;
   font-size: 16px;
   line-height: 1.7;
   color: #344054;
 }
+
 .overview-section p:last-child {
   margin-bottom: 0;
 }
+
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
   padding: 48px 0 40px;
 }
+
 .metric-item {
   border-top: 4px solid var(--brand);
   padding-top: 16px;
 }
+
 .metric-item strong {
   display: block;
   margin-bottom: 8px;
   font-size: 30px;
   line-height: 1;
 }
+
 .metric-item span {
   display: block;
   font-size: 15px;
   line-height: 1.45;
   color: var(--muted);
 }
+
 .statement-section {
   max-width: 860px;
   padding: 0 0 56px;
 }
+
 .statement-section p {
   margin: 0;
   font-size: clamp(26px, 4vw, 44px);
@@ -183,39 +207,47 @@ a {
   line-height: 1.12;
   color: var(--ink);
 }
+
 .section-heading {
   max-width: 680px;
   margin-bottom: 26px;
 }
+
 .section-heading h2 {
   margin: 8px 0 0;
   font-size: clamp(30px, 4vw, 48px);
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
+
 .story-section {
   padding: 0 0 48px;
 }
+
 .story-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px 36px;
 }
+
 .story-block {
   border-top: 4px solid var(--brand);
   padding-top: 18px;
 }
+
 .story-block h3 {
   margin: 0 0 10px;
   font-size: 22px;
   line-height: 1.2;
 }
+
 .story-block p {
   margin: 0;
   font-size: 16px;
   line-height: 1.6;
   color: var(--muted);
 }
+
 .route-section {
   display: grid;
   grid-template-columns: minmax(240px, 0.75fr) minmax(0, 1.25fr);
@@ -223,17 +255,20 @@ a {
   padding: 44px 0;
   border-top: 1px solid var(--line);
 }
+
 .route-section h2 {
   margin: 0 0 12px;
   font-size: 30px;
   line-height: 1.1;
 }
+
 .route-section p {
   margin: 0;
   font-size: 16px;
   line-height: 1.6;
   color: var(--muted);
 }
+
 .route-section ol {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -243,6 +278,7 @@ a {
   list-style: none;
   counter-reset: route;
 }
+
 .route-section li {
   counter-increment: route;
   display: grid;
@@ -253,6 +289,7 @@ a {
   line-height: 1.4;
   color: #344054;
 }
+
 .route-section li::before {
   display: grid;
   place-items: center;
@@ -264,6 +301,7 @@ a {
   content: counter(route);
   font-weight: 700;
 }
+
 .partner-section {
   display: grid;
   grid-template-columns: minmax(440px, 0.9fr) minmax(0, 1.1fr);
@@ -273,12 +311,14 @@ a {
   padding: 40px 0;
   margin-bottom: 44px;
 }
+
 .partner-section h2 {
   margin: 8px 0 0;
   font-size: clamp(24px, 2.5vw, 28px);
   line-height: 1.15;
   white-space: nowrap;
 }
+
 .partner-section ul {
   display: grid;
   gap: 12px;
@@ -286,6 +326,7 @@ a {
   padding: 0;
   list-style: none;
 }
+
 .partner-section li {
   position: relative;
   padding-left: 20px;
@@ -293,6 +334,7 @@ a {
   line-height: 1.55;
   color: #344054;
 }
+
 .partner-section li::before {
   position: absolute;
   top: 0.68em;
@@ -303,11 +345,13 @@ a {
   background: var(--brand);
   content: "";
 }
+
 .capability-section {
   display: grid;
   gap: 36px;
   padding: 0 0 56px;
 }
+
 .capability-group {
   display: grid;
   grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1.3fr);
@@ -315,37 +359,44 @@ a {
   border-top: 1px solid var(--line);
   padding-top: 28px;
 }
+
 .capability-group-heading h2 {
   margin: 0 0 12px;
   font-size: 28px;
   line-height: 1.1;
 }
+
 .capability-group-heading p {
   margin: 0;
   font-size: 16px;
   line-height: 1.6;
   color: var(--muted);
 }
+
 .capability-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px 24px;
 }
+
 .capability-item {
   border-top: 4px solid var(--brand);
   padding-top: 16px;
 }
+
 .capability-item h3 {
   margin: 0 0 10px;
   font-size: 19px;
   line-height: 1.2;
 }
+
 .capability-item p {
   margin: 0;
   font-size: 15px;
   line-height: 1.55;
   color: var(--muted);
 }
+
 @media (max-width: 860px) {
   .metrics-grid,
   .route-section ol,
@@ -353,101 +404,29 @@ a {
   .capability-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
   .route-section,
   .partner-section,
   .capability-group {
     grid-template-columns: 1fr;
   }
+
   .partner-section h2 {
     white-space: normal;
   }
 }
+
 @media (max-width: 560px) {
   .hero {
     min-height: 620px;
     padding-top: 64px;
     background-position: 58% center;
   }
+
   .metrics-grid,
   .route-section ol,
   .story-grid,
   .capability-list {
     grid-template-columns: 1fr;
-  }
-}
-@property --tw-rotate-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-rotate-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-rotate-z {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-skew-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-skew-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-blur {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-brightness {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-contrast {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-grayscale {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-hue-rotate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-invert {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-opacity {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-saturate {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-backdrop-sepia {
-  syntax: "*";
-  inherits: false;
-}
-@layer properties {
-  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
-    *, ::before, ::after, ::backdrop {
-      --tw-rotate-x: initial;
-      --tw-rotate-y: initial;
-      --tw-rotate-z: initial;
-      --tw-skew-x: initial;
-      --tw-skew-y: initial;
-      --tw-backdrop-blur: initial;
-      --tw-backdrop-brightness: initial;
-      --tw-backdrop-contrast: initial;
-      --tw-backdrop-grayscale: initial;
-      --tw-backdrop-hue-rotate: initial;
-      --tw-backdrop-invert: initial;
-      --tw-backdrop-opacity: initial;
-      --tw-backdrop-saturate: initial;
-      --tw-backdrop-sepia: initial;
-    }
   }
 }

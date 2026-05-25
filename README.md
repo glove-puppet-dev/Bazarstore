@@ -81,8 +81,8 @@ Local Netlify development keeps `HUGO_ENV = "development"` through the `context.
 
 ```text
 archetypes/             Hugo content archetypes
-assets/css/main.css     Tailwind 4.3 and custom source CSS
-assets/css/compiled.css Generated CSS consumed by Hugo and fingerprinted at build time
+assets/tailwind/input.css Tailwind 4.3 and custom source CSS
+assets/css/extended/custom.css Generated CSS consumed by PaperMod's extended CSS pipeline
 assets/source/          Non-published source/design files
 content/_index.md       Main page content and YAML data
 data/                   Hugo data directory, currently unused
@@ -117,7 +117,7 @@ Tailwind CSS `4.3` is compiled by PostCSS before Hugo runs:
 mise exec -- npm run build:css
 ```
 
-The source file is `assets/css/main.css`. The generated file is `assets/css/compiled.css`, which Hugo minifies, fingerprints, and publishes through the PaperMod head extension.
+The source file is `assets/tailwind/input.css`. The generated file is `assets/css/extended/custom.css`, which PaperMod automatically includes in its extended CSS bundle. Hugo then minifies, fingerprints, and publishes the combined stylesheet.
 
 Tailwind Preflight is intentionally not imported, so PaperMod's base styling remains stable and the custom homepage CSS only adds the Bazarstore-specific presentation layer.
 
