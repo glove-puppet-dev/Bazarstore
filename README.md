@@ -6,7 +6,7 @@ The site positions Bazarstore LLC as a full-cycle market-entry, import, logistic
 
 ## Stack
 
-- Hugo `0.161.1`
+- Hugo `0.162.0`
 - Go `1.26.3` for Hugo Modules
 - Node.js `26.0.0`
 - `mise` for pinned local tooling
@@ -68,7 +68,7 @@ Production build:
 Production environment:
 
 ```toml
-HUGO_VERSION = "0.161.1"
+HUGO_VERSION = "0.162.0"
 HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 GO_VERSION = "1.26.3"
@@ -81,15 +81,12 @@ Local Netlify development keeps `HUGO_ENV = "development"` through the `context.
 
 ```text
 archetypes/             Hugo content archetypes
-assets/tailwind/input.css Tailwind 4.3 and custom source CSS
-assets/css/extended/custom.css Generated CSS consumed by PaperMod's extended CSS pipeline
 assets/source/          Non-published source/design files
+assets/tailwind/input.css Tailwind 4.3 and custom source CSS
 content/_index.md       Main page content and YAML data
-data/                   Hugo data directory, currently unused
-i18n/                   Hugo translation directory, currently unused
+layouts/baseof.html     Local PaperMod base override for current Hugo APIs
 layouts/index.html      Custom homepage layout
 layouts/partials/       PaperMod extension partials
-layouts/_legacy/        Previous custom layouts kept inactive for reference
 static/                 Static assets copied directly to the published site
 go.mod                  Hugo Module definition and PaperMod dependency
 go.sum                  Hugo Module checksum file
@@ -105,9 +102,7 @@ scripts/hugo.sh         Hugo runner using mise locally and Netlify's Hugo in dep
 
 PaperMod is connected as a Hugo Module through `hugo.yaml`, `go.mod`, and `go.sum`.
 
-PaperMod owns the base templates, list/single templates, favicon handling, canonical URL, Open Graph tags, Twitter cards, and JSON-LD metadata. The project keeps only the custom homepage layout in `layouts/index.html` and extends the theme through `layouts/partials/extend_head.html`.
-
-The old custom `baseof.html`, `list.html`, and `single.html` files are stored in `layouts/_legacy/` and are not active.
+PaperMod owns the list/single templates, favicon handling, canonical URL, Twitter cards, and JSON-LD metadata. The project keeps a custom homepage layout in `layouts/index.html` and small local partial overrides for the header, footer, and Open Graph metadata.
 
 ## CSS
 
@@ -118,6 +113,8 @@ mise exec -- npm run build:css
 ```
 
 The source file is `assets/tailwind/input.css`. The generated file is `assets/css/extended/custom.css`, which PaperMod automatically includes in its extended CSS bundle. Hugo then minifies, fingerprints, and publishes the combined stylesheet.
+
+`assets/css/extended/custom.css` is generated and ignored by Git. Use the npm scripts instead of running `hugo` directly so the CSS exists before Hugo starts.
 
 Tailwind Preflight is intentionally not imported, so PaperMod's base styling remains stable and the custom homepage CSS only adds the Bazarstore-specific presentation layer.
 
@@ -178,8 +175,10 @@ Generated local files should not be committed:
 
 - `public/`
 - `resources/_gen/`
+- `assets/css/extended/custom.css`
 - `.hugo_build.lock`
 - `.netlify/`
+- `node_modules/`
 - `.DS_Store`
 
 These are covered by `.gitignore`.

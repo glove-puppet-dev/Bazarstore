@@ -7,6 +7,9 @@ resources/_gen/
 hugo_stats.json
 .hugo_build.lock
 
+# Generated CSS from Tailwind/PostCSS
+assets/css/extended/custom.css
+
 # Local environment and tool overrides
 .env
 .env.*
